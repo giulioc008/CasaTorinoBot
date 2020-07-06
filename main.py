@@ -16,7 +16,7 @@ configurations_map = {
 loop = asyncio.get_event_loop()
 
 config = Configurations("config/config.json", configurations_map)
-loop.run_until_complete(config.parse("known_devices.json"))
+loop.run_until_complete(config.parse("./known_devices.json"))
 config.set("app_hash", os.environ.pop("app_hash", None))
 config.set("app_id", int(os.environ.pop("app_id", 0)))
 config.set("bot_token", os.environ.pop("bot_token", None))
