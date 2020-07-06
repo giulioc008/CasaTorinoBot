@@ -197,3 +197,4 @@ tags
 ## Personal ##
 *.session
 *.session-journal
+known_devices.json

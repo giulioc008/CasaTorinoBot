@@ -34,12 +34,12 @@ class Configurations:
 	def set(self, name: str, value):
 		return setattr(self, name, value)
 
-	async def parse(self):
+	async def parse(self, allowed_users_path: str):
 		# Checking if the path is set
 		if self.__file_path is None:
 			raise FileNotSetException()
 
-		# Reading the file
+		# Reading the configuration file
 		async with AIOFile(self.__file_path, "r") as f:
 			content = await f.read()
 			content = json.loads(content)
@@ -48,6 +48,13 @@ class Configurations:
 			for key in self.__map.keys():
 				value = content[self.__map[key]] if self.__map[key] in content else None
 				setattr(self, key, value)
+
+		# Reading the allowed users file
+		async with AIOFile(allowed_users_path, "r") as f:
+			content = await f.read()
+			content = json.loads(content)
+
+			setattr(self, "allowed_users", content)
 
 	def set_map(self, new_map):
 		if type(new_map).__name__ != "dict":
