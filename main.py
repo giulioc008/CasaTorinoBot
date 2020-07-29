@@ -34,7 +34,7 @@ logger.info("Initializing the Admins ...")
 allowed_users_list = list(map(lambda n: n["id"], config.get("allowed_users")))
 
 logger.info("Admins initializated\nInitializing the Client ...")
-app = Client(session_name=config.get("bot_username"), api_id=config.get("app_id"), api_hash=config.get("app_hash"), bot_token=config.get("bot_token"), lang_code="it", workdir=".")
+app = Client(session_name=config.get("bot_username"), api_id=config.get("app_id"), api_hash=config.get("app_hash"), bot_token=config.get("bot_token"), lang_code="it", workdir=".", parse_mode="html")
 
 
 @app.on_message(Filters.command("help", prefixes="/") & Filters.user(allowed_users_list) & Filters.private)
@@ -121,7 +121,5 @@ async def unknown(_, message: Message):
 	logger.info("I managed an unsupported command.")
 
 
-logger.info("Client initializated\nSetting the markup syntax ...")
-app.set_parse_mode("html")
-logger.info("Setted the markup syntax\nStarted serving ...")
+logger.info("Client initializated\nStarted serving ...")
 app.run()
